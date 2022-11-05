@@ -774,13 +774,22 @@ class KleinanzeigenBot(SeleniumMixin):
 
         extractor = extract.AdExtractor(self.webdriver)
 
+        belen_conf = self.webdriver.execute_script("return window.BelenConf")
+        belen_conf_dim = belen_conf["universalAnalyticsOpts"]["dimensions"]
+
         # extract category
-        info['category'] = extractor.extract_category_from_ad_page()
+        category = belen_conf_dim["dimension2"] + "/" + belen_conf_dim["dimension3"]
+        info['category'] = category
 
         # get special attributes
-        info['special_attributes'] = extractor.extract_special_attributes_from_ad_page()
+        special_attributes = json.loads(belen_conf_dim["dimension108"])
+        assert isinstance(special_attributes, dict)
+        # filter unrequired attributes
+        special_attributes = {k: v for k, v in special_attributes.items() if not k.endswith('.versand_s')}
+        info['special_attributes'] = special_attributes
 
         # process pricing
+        # TODO might be able to get this from belen_conf dimension31, 32
         info['price'], info['price_type'] = extractor.extract_pricing_info_from_ad_page()
 
         # process shipping
