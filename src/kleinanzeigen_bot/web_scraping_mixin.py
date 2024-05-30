@@ -552,7 +552,7 @@ class WebScrapingMixin:
                 {{
                   if(element.options[i].value == "{selected_value}") {{
                     element.selectedIndex = i;
-                    "element.dispatchEvent(new Event('change', {{ bubbles: true }}));"
+                    element.dispatchEvent(new Event('change', {{ bubbles: true }}));
                     break;
                 }}
               }}
