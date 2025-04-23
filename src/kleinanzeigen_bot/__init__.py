@@ -133,7 +133,9 @@ class KleinanzeigenBot(WebScrapingMixin):
                     LOG.error("Unknown command: %s", self.command)
                     sys.exit(2)
         finally:
-            self.close_browser_session()
+            # Browser schließen
+            self.browser.stop()
+            # self.close_browser_session()
 
     def show_help(self) -> None:
         if is_frozen():
