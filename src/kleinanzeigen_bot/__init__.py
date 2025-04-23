@@ -725,7 +725,7 @@ class KleinanzeigenBot(WebScrapingMixin):  # noqa: PLR0904
 
     def __del__(self) -> None:
         if self.file_log:
-            self.file_log.close()
+            # self.file_log.close()
             self.file_log = None
         self.close_browser_session()
 
