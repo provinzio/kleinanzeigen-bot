@@ -727,7 +727,7 @@ class KleinanzeigenBot(WebScrapingMixin):  # noqa: PLR0904
         if self.file_log:
             # self.file_log.close()
             self.file_log = None
-        self.close_browser_session()
+        # self.close_browser_session()
 
     def get_version(self) -> str:
         return __version__
@@ -1000,7 +1000,9 @@ class KleinanzeigenBot(WebScrapingMixin):  # noqa: PLR0904
                     LOG.error("Unknown command: %s", self.command)
                     sys.exit(2)
         finally:
-            self.close_browser_session()
+            # Browser schließen
+            self.browser.stop()
+            # self.close_browser_session()
             if self._timing_collector is not None:
                 try:
                     loop = asyncio.get_running_loop()
