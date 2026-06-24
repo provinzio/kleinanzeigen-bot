@@ -72,9 +72,9 @@ class KleinanzeigenBot(WebScrapingMixin):  # noqa: PLR0904
 
     def __del__(self) -> None:
         if self.file_log:
-            self.file_log.close()
+            # self.file_log.close()
             self.file_log = None
-        self._close_browser_session_nowait()
+        # self._close_browser_session_nowait()
 
     def get_version(self) -> str:
         return __version__
@@ -156,7 +156,7 @@ class KleinanzeigenBot(WebScrapingMixin):  # noqa: PLR0904
                     LOG.error("Unknown command: %s", self.command)
                     sys.exit(2)
         finally:
-            await self.close_browser_session()
+            # await self.close_browser_session()
             if self._timing_collector is not None:
                 try:
                     await asyncio.to_thread(self._timing_collector.flush)
